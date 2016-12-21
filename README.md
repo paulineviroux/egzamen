@@ -34,8 +34,8 @@ Votre API sera bien sûr développée _via_ **node.js** et le serveur **Express*
 
 À vous de structurer convenablement vos routes et leurs paramètres. Votre API doit me permettre de faire les actions suivantes : 
 
-* lister les fast-food les plus proche à partir d'une position géographique donnée
-* consulter les détails d'un fast-food en particulier
+* lister les fast-food les plus proche à partir d'une position géographique donnée (cette opération ne retournera que les *noms*, *slugs*, *adresses* et *positions* des éléments) 
+* consulter les détails d'un fast-food en particulier (cette opération retournera les infos complètes, incluant les *horaires d'ouverture* et un booléen indiquant si le fast-food est *ouvert* au moment de la requête.
 * ajouter un nouveau fast-food
 * modifier les données (adresse, position, heures d'ouverture) d'un fast-food en particulier
 * supprimer un fast-food
@@ -44,8 +44,8 @@ Votre API sera bien sûr développée _via_ **node.js** et le serveur **Express*
 
 En utilisant la librairie **Vue.js** (et les outils de votre choix si vous jugez en avoir besoin), développer une petite _one-page app_ qui affichera : 
 
-* la liste des fast-food les plus proches
-* les détails d'un fast-food sélectionné
+* la liste des fast-food les plus proches (uniquement *noms*, *adresses* et *état d'ouverture*)
+* les détails d'un fast-food sélectionné (toutes les infos, y compris les *horaires d'ouverture*, dans une présentation *lisible par un humain*)
 
 Le sujet du cours ne porte pas sur le _design_, mais l'ajout de quelques éléments de mise en page sera **fortement apprécié** (même s'il s'agit d'utiliser une librairie comme Bootstrap).
 
