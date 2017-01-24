@@ -25,7 +25,7 @@ export default function( oRequest, oResponse ) {
     }
 
 
-    ( isNaN( iSearchRadius ) ) && ( iSearchRadius = DEFAULT_RADIUS );
+    isNaN( iSearchRadius ) && ( iSearchRadius = DEFAULT_RADIUS );
     ( iSearchRadius < DEFAULT_RADIUS ) && ( iSearchRadius = DEFAULT_RADIUS );
     ( iSearchRadius > MAX_RADIUS ) && ( iSearchRadius = MAX_RADIUS );
 
