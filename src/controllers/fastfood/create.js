@@ -30,7 +30,7 @@ export default function( oRequest, oResponse ) {
         return error( oRequest, oResponse, "Invalid position", 400 );
     }
 
-    oTerminal = {
+    oFastfood = {
         "latitude": oPosition.latitude,
         "longitude": oPosition.longitude,
         "created_at": new Date(),

@@ -46,7 +46,7 @@ export default function( oRequest, oResponse ) {
                 oCleanFastfood.distance = distance( oCurrentPosition, oCleanFastfood ) * 1000;
             }
 
-            send( oRequest, oResponse, oCleanTerminal );
+            send( oRequest, oResponse, oCleanFastfood );
         } )
         .catch( ( oError ) => error( oRequest, oResponse, oError ) );
 }
