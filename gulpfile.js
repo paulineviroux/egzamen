@@ -12,7 +12,11 @@
 
 var gulp = require( "gulp" ),
     gESLint = require( "gulp-eslint" ),
-    gBabel = require( "gulp-babel" );
+    gBabel = require( "gulp-babel" ),
+    gUtil = require( "gulp-util" ),
+    Mongo = require( "mongodb" ),
+    ObjectID = Mongo.ObjectID,
+    MongoClient = Mongo.MongoClient;
 
 gulp.task( "lint", function() {
     return gulp
@@ -28,7 +32,41 @@ gulp.task( "build", function() {
         .pipe( gulp.dest( "bin" ) )
 } );
 
+gulp.task( "reset-db", function( fNext ) {
+    // Check if we are inside vagrant
+    if ( process.env.USER !== "vagrant" ) {
+        gUtil.beep();
+        gUtil.log( gUtil.colors.red( "This task must be runned from INSIDE the vagrant box!" ) );
+        return fNext();
+    }
 
+    // Connection to mongodb
+    MongoClient.connect( "mongodb://127.0.0.1:27017/kach", function( oError, oDB ) {
+        var fDataParser;
+
+        if ( oError ) {
+            gUtil.beep();
+            return fNext( oError );
+        }
+
+        // drop database
+        oDB
+            .dropDatabase()
+            .then( function() {
+                return oDB.collection( "fastfood" ).insertMany( require( __dirname + "/data/export.json" ) );
+            } )
+            .then( function() {
+                oDB.close();
+                gUtil.log( gUtil.colors.green( "DB has been resetted." ) );
+                fNext();
+            } )
+            .catch( function( oError ) {
+                oDB.close();
+                fNext( oError );
+            } );
+    } );
+
+} );
 
 gulp.task( "watch", function() {
     gulp.watch( "src/**/*.js", [ "build" ] );
