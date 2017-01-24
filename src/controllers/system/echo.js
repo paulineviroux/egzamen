@@ -6,14 +6,10 @@
  * started at 21/01/2017
  */
 
+import { send } from "../../core/utils/api.js";
 
 export default function( oRequest, oResponse ) {
-    let sEcho = oRequest.query.echo || "hello, world!";
+    let sEcho = oRequest.query.echo || "Hola!!";
 
-    oResponse.send( {
-        "url": oRequest.url,
-        "timestamp": Date.now(),
-        "data": sEcho,
-        "error": false,
-    } );
+    send( oRequest, oResponse, sEcho );
 }
