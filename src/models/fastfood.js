@@ -8,6 +8,6 @@
 
 import { db } from "../core/mongodb";
 
-let oBanks = db.collection( "fastfood" );
-
-export default oFastfood;
+export default function() {
+    return db.collection( "fastfood" );
+}
