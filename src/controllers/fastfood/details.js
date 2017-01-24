@@ -29,12 +29,13 @@ export default function( oRequest, oResponse ) {
             "_id": new ObjectID( sFastfoodID ),
             "deleted_at": null,
         } )
-        .then( ( { _id, name, latitude, longitude, address, hours } ) => {
-            let oCleanFastfood;
-
-            if ( !_id ) {
+        .then( ( oFastfood ) => {
+            if( !oFastfood ) {
                 return error( oRequest, oResponse, "Unknown Fastfood", 404 );
-            };
+            }
+
+            let { _id, name, latitude, longitude, address, hours } = oFastfood,
+                oCleanFastfood;
 
             oCleanFastfood = {
                 "id": _id,
@@ -43,7 +44,7 @@ export default function( oRequest, oResponse ) {
 
             if ( oCurrentPosition ) {
                 oCleanFastfood.distance = distance( oCurrentPosition, oCleanFastfood ) * 1000;
-            };
+            }
 
             send( oRequest, oResponse, oCleanTerminal );
         } )
