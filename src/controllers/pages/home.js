@@ -7,6 +7,6 @@
  */
 
 export default function( oRequest, oResponse ) {
-    oResponse.send( "Hola, chica" );
+    oResponse.render( "index" );
 }
 
