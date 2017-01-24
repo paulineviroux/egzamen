@@ -45,7 +45,15 @@ export default function( oRequest, oResponse ) {
     getFastfood()
         .insertOne( oFastfood )
         .then( () => {
-            send( oRequest, oResponse, oFastfood, 201 );
+            send( oRequest, oResponse, {
+                "id": oFastfood._id,
+                "name": oFastfood.name || null,
+                "address": oFastfood.address || null,
+                "slug": oFastfood.slug,
+                "latitude": oFastfood.latitude,
+                "longitude": oFastfood.longitude,
+                "hours": oFastfood.hours,
+            }, 201 );
         } )
         .catch( ( oError ) => error( oRequest, oResponse, oError ) );
 
