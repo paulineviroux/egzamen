@@ -12,6 +12,9 @@
   },
   "author": "pauline viroux",
   "license": "ISC",
+  "browser":{
+    "vue": "vue/dist/vue.common"
+  },
   "bugs": {
     "url": "https://github.com/hepl-ria/egzamen/issues"
   },

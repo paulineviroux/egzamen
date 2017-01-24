@@ -6,8 +6,11 @@
  * started at 21/01/2017
  */
 
-import utils from "./utils";
+import Vue from "vue";
 
-console.log( "Hey!" );
-
-utils();
+let oApp = new Vue( {
+    "el": "#app",
+    "data": {
+        "message": "Hey from Vue!",
+    },
+} );
