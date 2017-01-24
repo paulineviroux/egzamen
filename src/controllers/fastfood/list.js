@@ -11,7 +11,7 @@ import { send, error } from "../../core/utils/api";
 import distance from "jeyo-distans";
 import checkPosition from "../../core/utils/position.js";
 
-const ARC_KILOMETER = 0.009259,
+const ARC_KILOMETER = 0.009259, // 1 décimale de lat/lng vaut X km
         DEFAULT_RADIUS = 5,
         MAX_RADIUS = 20;
 
@@ -25,7 +25,7 @@ export default function( oRequest, oResponse ) {
     }
 
 
-    isNaN( iSearchRadius ) && ( iSearchRadius = DEFAULT_RADIUS );
+    ( isNaN( iSearchRadius ) ) && ( iSearchRadius = DEFAULT_RADIUS );
     ( iSearchRadius < DEFAULT_RADIUS ) && ( iSearchRadius = DEFAULT_RADIUS );
     ( iSearchRadius > MAX_RADIUS ) && ( iSearchRadius = MAX_RADIUS );
 
@@ -48,9 +48,15 @@ export default function( oRequest, oResponse ) {
         .then( ( aFastfood = [] ) => {
             let aCleanFastfood;
 
-            aCleanFastfood = aFastfood.map( ( { name, slug, address, latitude, longitude } ) => ( { name, slug, address, latitude, longitude, }
-            ) );
 
+            // clean useless properties AND compute distance
+            aCleanFastfood = aFastfood.map( ( { _id, name, slug, address, latitude, longitude } ) => ( {
+                "id": _id,
+                "distance": distance( oCurrentPosition, { latitude, longitude } ) * 1000,
+                name, slug, latitude, longitude, address,
+            } ) );
+
+            // sort by distance
             aCleanFastfood.sort( ( oFastfoodOne, oFastfoodTwo ) => oFastfoodOne.distance - oFastfoodTwo.distance );
 
             
