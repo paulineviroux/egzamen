@@ -14,6 +14,7 @@ import zouti from "zouti";
 
 import systemRoutes from "../routes/system.js";
 import fastfoodRoutes from "../routes/fastfood.js";
+import pagesRoutes from "../routes/pages.js";
 
 const APP_PORT = 12345;
 
@@ -38,6 +39,7 @@ fInit = function( iAppPort = APP_PORT ) {
     // routes
     oApp.use( systemRoutes );
     oApp.use( fastfoodRoutes );
+    oApp.use( pagesRoutes );
 
     // listening
     oApp.listen( iAppPort, () => {

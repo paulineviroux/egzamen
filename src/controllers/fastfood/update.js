@@ -1,6 +1,6 @@
 /* paulineviroux/RIA/egzamen
  *
- * /src/controllers/fastfood/update.js - Create fastfood controller
+ * /src/controllers/fastfood/update.js - Update fastfood controller
  *
  * coded by paulineviroux!
  * started at 21/01/2017
