@@ -12,7 +12,8 @@ import responseTime from "response-time";
 import mitanEko from "mitan-eko";
 import zouti from "zouti";
 
-import systemRoutes from "../routes/system";
+import systemRoutes from "../routes/system.js";
+import fastfoodRoutes from "../routes/fastfood.js";
 
 const APP_PORT = 12345;
 
@@ -36,6 +37,7 @@ fInit = function( iAppPort = APP_PORT ) {
 
     // routes
     oApp.use( systemRoutes );
+    oApp.use( fastfoodRoutes );
 
     // listening
     oApp.listen( iAppPort, () => {
