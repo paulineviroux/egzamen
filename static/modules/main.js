@@ -8,26 +8,32 @@
 
 import Vue from "vue";
 
-import "./components/cats-list.js";
-import "./components/secret.js";
+import FastfoodList from "./components/fastfood/list.js";
+import FastfoodDetails from "./components/fastfood/details.js";
 
+Vue.use( VueRouter );
+
+let oRouter = new VueRouter( {
+    "routes": [
+        { "path": "/", "component": FastfoodList },
+        { "path": "/:id", "component": FastfoodDetails },
+    ],
+} );
 
 let oApp = new Vue( {
     "template": `
-        <div class="box">
+        <div class="wrapper">
+            <h1>Egzamen</h1>
+            <main>
+                <router-view></router-view>
+            <main>
             <p>{{ message }}</p>
-            <cats-list v-bind:elements="cats"></cats-list>
-            <secret v-bind:content="secret"></secret>
+            <footer>
+                <a href="http://github.com/paulineviroux/egzamen">Lien github</a>
+            </footer>
         </div>
     `,
-    "data": {
-        "message": "Hey from Vue!",
-        "secret": "I'm not a dog person!",
-        "cats": [
-            { "name": "Skitty", "age": 6 },
-            { "name": "Pixel", "age": 4 },
-        ],
-    },
+    "router": oRouter,
 } );
 
 oApp.$mount( "#app" );
