@@ -32,7 +32,7 @@ let ofastfoodDetails = Vue.component( "fastfood-details", {
             <div v-if="loaded" class="main">
                 <h2 class="main__title">{{ fastfood.name }}</h2>
                 <address class="main__address">{{ fastfood.address }}</address>
-            
+                <p class="main__distance">Ce quick se trouve à <span class="main__meters">{{ fastfood.distance }}m</span> de votre position actuelle</p>
                 <div class="coordonnees">
                     <h3 class="coordonnees__title">Coordonnées</h3>
                     <p class="coordonnees__p">Latitude: {{ fastfood.latitude }}</p>
