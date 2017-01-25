@@ -40,7 +40,7 @@ let oFastfoodsList = Vue.component( "fastfoods-list", {
                     </li>
                 </ul>
             </div>
-            
+        
         </div>
     `,
     mounted() {

@@ -23,7 +23,7 @@ export default function( oRequest, oResponse ) {
         sAddress = ( POST.address || "" ).trim(),
         oPosition = checkPosition( iLatitude, iLongitude ),
         aHours = POST.hours,
-        sSlug = sName.toLowerCase().replace( " ", "-" ), 
+        sSlug = sName.replace( " ", "-" ).toLowerCase(), 
         oFastfood = {};
 
     if ( !oPosition ) {
@@ -42,14 +42,14 @@ export default function( oRequest, oResponse ) {
     aHours && ( oFastfood.hours = aHours );
     sSlug && ( oFastfood.slug = sSlug );
 
-    getFastfood()
+    getFastfoods()
         .insertOne( oFastfood )
         .then( () => {
             send( oRequest, oResponse, {
                 "id": oFastfood._id,
                 "name": oFastfood.name || null,
                 "address": oFastfood.address || null,
-                "slug": oFastfood.slug,
+                "slug": oFastfood.slug || null ,
                 "latitude": oFastfood.latitude,
                 "longitude": oFastfood.longitude,
                 "hours": oFastfood.hours,

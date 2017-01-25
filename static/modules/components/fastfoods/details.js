@@ -30,15 +30,23 @@ let oFastfoodDetails = Vue.component( "fastfood-details", {
                     {{ error.message }}
                 </p>
             </div>
-            <div v-if="loaded">
-                <h2>Détails dun fastfood</h2>
-                <p>{{ fastfood.name }}</p>
-                <address>{{ fastfood.address }}</address>
-                <p>{{ fastfood.hours }}</p>
+            <div v-if="loaded" class="main">
+                <h2 class="main__title">Détails dun fastfood</h2>
+                <p class="main__p">{{ fastfood.name }}</p>
+                <span v-if="!resto.state">Fermé</span>
+                <span v-if="resto.state">Ouvert</span>
+                <address class="main__address">{{ fastfood.address }}</address>
+                <p class="main__p">{{ fastfood.hours }}</p>
             </div>
-            <router-link to="/">&lsaquo; retour</router-link>
+
+            <router-link to="/">&lsaquo; retour
+            <p class="main__p">{{ fastfood.name }}</p></router-link>
         </div>
     `,
+    mounted() {
+        this.fetchInfos( this.$route.params.id );
+    },
+
     "method": {
         fetchInfos( sFastfoodId ) {
             return getLocation()

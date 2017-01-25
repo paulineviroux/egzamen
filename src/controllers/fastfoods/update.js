@@ -83,7 +83,7 @@ export default function( oRequest, oResponse ) {
             }
 
             //3d. check hours
-            if ( sName ) {
+            if ( aHours ) {
                 oFastfood.hours = aHours;
                 aModifications.push( "hours" );
             }

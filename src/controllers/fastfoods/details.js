@@ -39,6 +39,7 @@ export default function( oRequest, oResponse ) {
 
             oCleanFastfood = {
                 "id": _id,
+                "state": bState,
                 name, slug, latitude, longitude, address, hours,
             };
 
