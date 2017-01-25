@@ -13,7 +13,7 @@ import mitanEko from "mitan-eko";
 import zouti from "zouti";
 
 import systemRoutes from "../routes/system.js";
-import fastfoodRoutes from "../routes/fastfood.js";
+import fastfoodsRoutes from "../routes/fastfoods.js";
 import pagesRoutes from "../routes/pages.js";
 
 const APP_PORT = 12345;
@@ -28,7 +28,7 @@ fInit = function( iAppPort = APP_PORT ) {
 
     oApp = express();
 
-    // configure middlewares
+    // configure middlewares 
     oApp.use( mitanEko( "egzamen" ) );
     oApp.use( responseTime() );
     oApp.use( bodyParser.json() );
@@ -45,12 +45,12 @@ fInit = function( iAppPort = APP_PORT ) {
 
     // routes
     oApp.use( systemRoutes );
-    oApp.use( fastfoodRoutes );
+    oApp.use( fastfoodsRoutes );
     oApp.use( pagesRoutes );
 
     // listening
     oApp.listen( iAppPort, () => {
-        zouti.success( `Server is listening on ${ iAppPort }.`, "egzamen" );
+        zouti.success( `Server is listening on ${ iAppPort }.`, "egzamen2" );
     } );
 };
 

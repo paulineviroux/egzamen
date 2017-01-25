@@ -12,7 +12,7 @@ import { ObjectID } from "mongodb";
 
 let fCheckFastfood;
 
-fCheckFastfood = function( sBankID ) {
+fCheckFastfood = function( sFastfoodID ) {
     let oFastfoodID;
 
     if ( !sFastfoodID ) {
@@ -21,11 +21,11 @@ fCheckFastfood = function( sBankID ) {
 
     try {
         oFastfoodID = new ObjectID( sFastfoodID );
-    } catch( oError ) {
-        return Promise.reject( new Error( "Invalid Bank ID!" ) );
+    } catch ( oError ) {
+        return Promise.reject( new Error( "Invalid fastfood ID!" ) );
     }
 
-    return db.collection( "fastfood" )
+    return db.collection( "fastfoods" )
         .findOne( {
             "_id": oFastfoodID,
         } )
@@ -40,7 +40,7 @@ fCheckFastfood = function( sBankID ) {
 
 
 export default function() {
-    return db.collection( "fastfood" );
+    return db.collection( "fastfoods" );
 }
 
 export {

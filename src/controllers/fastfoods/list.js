@@ -1,13 +1,13 @@
 /* paulineviroux/RIA/egzamen
  *
- * /src/controllers/fastfood/list.js - Model for fastfood
+ * /src/controllers/fastfood/list.js - Controller to list fastfood
  *
  * coded by paulineviroux!
  * started at 21/01/2017
  */
 
-import getFastfood from "../../models/fastfood.js";
-import { send, error } from "../../core/utils/api";
+import getFastfoods from "../../models/fastfoods.js";
+import { send, error } from "../../core/utils/api.js";
 import distance from "jeyo-distans";
 import checkPosition from "../../core/utils/position.js";
 
@@ -20,6 +20,7 @@ export default function( oRequest, oResponse ) {
 
     let oCurrentPosition = checkPosition( +oRequest.query.latitude, +oRequest.query.longitude ), iSearchRadius = +oRequest.query.radius;
 
+    //Check if the position is valid
     if ( !oCurrentPosition ) {
         return error( oRequest, oResponse, "Invalid position", 400 );
     }
@@ -32,7 +33,7 @@ export default function( oRequest, oResponse ) {
 
     iSearchRadius *= ARC_KILOMETER;
 
-    getFastfood()
+    getFastfoods()
         .find( {
             "latitude": {
                 "$gt": oCurrentPosition.latitude - iSearchRadius,
@@ -42,25 +43,27 @@ export default function( oRequest, oResponse ) {
                 "$gt": oCurrentPosition.longitude - iSearchRadius,
                 "$lt": oCurrentPosition.longitude + iSearchRadius,
             },
-            "deleted_at": null,
         } )
         .toArray()
-        .then( ( aFastfood = [] ) => {
-            let aCleanFastfood;
+        .then( ( aFastfoods = [] ) => {
+            let aCleanFastfoods,
+            iCurrentDay = new Date().getDay(),
+            iCurrentHour = new Date().getHours() + ( new Date().getMinutes() / 60 );
 
 
             // clean useless properties AND compute distance
-            aCleanFastfood = aFastfood.map( ( { _id, name, slug, address, latitude, longitude } ) => ( {
+            aCleanFastfoods = aFastfoods.map( ( { _id, name, slug, address, latitude, longitude, hours } ) => ( {
                 "id": _id,
                 "distance": distance( oCurrentPosition, { latitude, longitude } ) * 1000,
-                name, slug, latitude, longitude, address,
+                "state":(iCurrentHour >= hours[ iCurrentDay ][0] && iCurrentHour <= hours[ iCurrentDay ][1]),
+                name, slug, latitude, longitude, address, hours,
             } ) );
 
             // sort by distance
-            aCleanFastfood.sort( ( oFastfoodOne, oFastfoodTwo ) => oFastfoodOne.distance - oFastfoodTwo.distance );
+            aCleanFastfoods.sort( ( oFastfoodOne, oFastfoodTwo ) => oFastfoodOne.distance - oFastfoodTwo.distance );
 
             
-            send( oRequest, oResponse, aCleanFastfood );
+            send( oRequest, oResponse, aCleanFastfoods );
         } )
         .catch( ( oError ) => error( oRequest, oResponse, oError ) );
 }

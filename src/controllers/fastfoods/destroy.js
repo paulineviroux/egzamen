@@ -8,7 +8,7 @@
 
 import { ObjectID } from "mongodb";
 import { send, error } from "../../core/utils/api.js";
-import getFastfood from "../../models/fastfood.js";
+import getFastfoods from "../../models/fastfoods.js";
 
 export default function( oRequest, oResponse ) {
 
@@ -20,7 +20,7 @@ export default function( oRequest, oResponse ) {
         return error( oRequest, oResponse, new Error( "Invalid ID!" ), 400 );
     }
 
-    getFastfood()
+    getFastfoods()
         .deleteOne( {
             "_id": oFastfoodID,
         } )

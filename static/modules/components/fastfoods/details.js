@@ -1,25 +1,26 @@
 /* paulineviroux/RIA/egzamen
  *
- * /static/modules/components/fastfood/list.js - Fastfood list vue
+ * /static/modules/components/fastfood/details.js - Fastfood details vue
  *
  * coded by paulineviroux!
  * started at 21/01/2017
  */
 
+
 import Vue from "vue";
 import reqwest from "reqwest";
 import getLocation from "../../utils/location-manager.js";
 
-let oFastfoodList = Vue.component( "fastfood-list", {
+let oFastfoodDetails = Vue.component( "fastfood-details", {
     "data": function() {
         return {
             "loaded": false,
-            "fastfood": [],
+            "fastfood": {},
             "error": null,
         };
     },
     "template": `
-        <div class="fastfood-list">
+        <div class="fastfood-details">
             <div class="loading" v-if="!loaded">
                 <p>loading…</p>
             </div>
@@ -29,26 +30,21 @@ let oFastfoodList = Vue.component( "fastfood-list", {
                     {{ error.message }}
                 </p>
             </div>
-            <ul>
-                <li v-for="elt in fastfood">
-                    <router-link :to="'/' + elt.id">
-                        <strong>{{ elt.name }}</strong>
-                        <address>{{ elt.address }}</address>
-                    </router-link>
-                </li>
-            </ul>
+            <div v-if="loaded">
+                <h2>Détails dun fastfood</h2>
+                <p>{{ fastfood.name }}</p>
+                <address>{{ fastfood.address }}</address>
+                <p>{{ fastfood.hours }}</p>
+            </div>
+            <router-link to="/">&lsaquo; retour</router-link>
         </div>
     `,
-    mounted() {
-        this.updateFastfood();
-    },
-    "methods": {
-        updateFastfood() {
-            // 1. get user's position
+    "method": {
+        fetchInfos( sFastfoodId ) {
             return getLocation()
                 .then( ( { coords } ) => {
                     return reqwest( {
-                        "url": "/fastfood",
+                        "url": `/fastfoods/${ sFastfoodId }`,
                         "method": "get",
                         "data": {
                             "latitude": coords.latitude,
@@ -57,16 +53,18 @@ let oFastfoodList = Vue.component( "fastfood-list", {
                     } );
                 } )
                 .then( ( oResponse ) => {
+                    let oFastfood = oResponse.data;
+
                     this.loaded = true;
-                    this.fastfood = oResponse.data;
+                    this.fastfood = oFastfood;
                 } )
                 .catch( this.showError );
         },
-        showError( oError ) {
+        showError( { message } ) {
             this.loaded = true;
-            this.error = oError;
+            this.error = message;
         },
     },
 } );
 
-export default oFastfoodList;
+export default oFastfoodDetails;

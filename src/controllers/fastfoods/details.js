@@ -7,8 +7,8 @@
  */
 
 
-import getFastfood from "../../models/fastfood.js";
-import { send, error } from "../../core/utils/api";
+import getFastfoods from "../../models/fastfoods.js";
+import { send, error } from "../../core/utils/api.js";
 import { ObjectID } from "mongodb";
 import distance from "jeyo-distans";
 import checkPosition from "../../core/utils/position.js";
@@ -24,7 +24,7 @@ export default function( oRequest, oResponse ) {
 
     oCurrentPosition = checkPosition( +oRequest.query.latitude, +oRequest.query.longitude );
 
-    getFastfood()
+    getFastfoods()
         .findOne( {
             "_id": new ObjectID( sFastfoodID ),
             "deleted_at": null,
@@ -39,7 +39,7 @@ export default function( oRequest, oResponse ) {
 
             oCleanFastfood = {
                 "id": _id,
-                name, latitude, longitude, address, hours,
+                name, slug, latitude, longitude, address, hours,
             };
 
             if ( oCurrentPosition ) {

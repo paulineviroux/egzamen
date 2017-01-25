@@ -7,28 +7,28 @@
  */
 
 import Vue from "vue";
-
-import FastfoodList from "./components/fastfood/list.js";
-import FastfoodDetails from "./components/fastfood/details.js";
+import VueRouter from "vue-router";
+import FastfoodsList from "./components/fastfoods/list.js";
+import FastfoodsDetails from "./components/fastfoods/details.js";
 
 Vue.use( VueRouter );
 
 let oRouter = new VueRouter( {
     "routes": [
-        { "path": "/", "component": FastfoodList },
-        { "path": "/:id", "component": FastfoodDetails },
+        { "path": "/", "component": FastfoodsList },
+        { "path": "/:id", "component": FastfoodsDetails },
     ],
 } );
 
 let oApp = new Vue( {
     "template": `
         <div class="wrapper">
-            <h1>Egzamen</h1>
-            <main>
+            <h1 class="wrapper__title">Egzamen</h1>
+            <main class="main">
                 <router-view></router-view>
             <main>
             <p>{{ message }}</p>
-            <footer>
+            <footer class="footer">
                 <a href="http://github.com/paulineviroux/egzamen">Lien github</a>
             </footer>
         </div>

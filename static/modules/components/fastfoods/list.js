@@ -1,26 +1,25 @@
 /* paulineviroux/RIA/egzamen
  *
- * /static/modules/components/fastfood/details.js - Fastfood details vue
+ * /static/modules/components/fastfood/list.js - Fastfood list vue
  *
  * coded by paulineviroux!
  * started at 21/01/2017
  */
 
-
 import Vue from "vue";
 import reqwest from "reqwest";
 import getLocation from "../../utils/location-manager.js";
 
-let oFastfoodDetails = Vue.component( "fastfood-details", {
+let oFastfoodsList = Vue.component( "fastfoods-list", {
     "data": function() {
         return {
             "loaded": false,
-            "terminal": {},
+            "fastfoods": [],
             "error": null,
         };
     },
     "template": `
-        <div class="fastfood-details">
+        <div class="fastfoods-list">
             <div class="loading" v-if="!loaded">
                 <p>loading…</p>
             </div>
@@ -30,21 +29,30 @@ let oFastfoodDetails = Vue.component( "fastfood-details", {
                     {{ error.message }}
                 </p>
             </div>
-            <div v-if="loaded">
-                <h2>Détails dun fastfood</h2>
-                <p>{{ fastfood.name }}</p>
-                <address>{{ fastfood.address }}</address>
-                <p>{{ fastfood.hours }}</p>
+            <div class="main">
+            <h2 class="main__title">Les Quicks à proximité</h2>
+                <ul class="main__list">
+                    <li class="main__item" v-for="elt in fastfoods">
+                        <router-link :to="'/' + elt.id" class="main__link">
+                            <h3 class="main__name">{{ elt.name }}</h3>
+                            <address>{{ elt.address }}</address>
+                        </router-link>
+                    </li>
+                </ul>
             </div>
-            <router-link to="/">&lsaquo; retour</router-link>
+            
         </div>
     `,
-    "method": {
-        fetchInfos( sFastfoodId ) {
+    mounted() {
+        this.updateFastfoods();
+    },
+    "methods": {
+        updateFastfoods() {
+            // 1. get user's position
             return getLocation()
                 .then( ( { coords } ) => {
                     return reqwest( {
-                        "url": `/fastfood/${ sFastfoodId }`,
+                        "url": "/fastfoods",
                         "method": "get",
                         "data": {
                             "latitude": coords.latitude,
@@ -56,15 +64,15 @@ let oFastfoodDetails = Vue.component( "fastfood-details", {
                     let oFastfood = oResponse.data;
 
                     this.loaded = true;
-                    this.fastfood = oFastfood;
+                    this.fastfoods = oFastfood;
                 } )
                 .catch( this.showError );
         },
-        showError( { message } ) {
+        showError( oError ) {
             this.loaded = true;
-            this.error = message;
+            this.error = oError;
         },
     },
 } );
 
-export default oFastfoodDetails;
+export default oFastfoodsList;

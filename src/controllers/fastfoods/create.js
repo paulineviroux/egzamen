@@ -9,7 +9,7 @@
 import Promise from "bluebird";
 import { ObjectID } from "mongodb";
 
-import getFastfood from "../../models/fastfood.js";
+import getFastfoods from "../../models/fastfoods.js";
 import { send, error } from "../../core/utils/api.js";
 import checkPosition from "../../core/utils/position.js";
 
@@ -19,12 +19,12 @@ export default function( oRequest, oResponse ) {
 
     let iLatitude = +POST.latitude,
         iLongitude = +POST.longitude,
-        sName = ( POST.name || "" ).trim(),
+        sName = ( POST.name || "" ).trim(), // trim : vider les caractere vide. 
         sAddress = ( POST.address || "" ).trim(),
         oPosition = checkPosition( iLatitude, iLongitude ),
         aHours = POST.hours,
         sSlug = sName.toLowerCase().replace( " ", "-" ), 
-        oFastfood;
+        oFastfood = {};
 
     if ( !oPosition ) {
         return error( oRequest, oResponse, "Invalid position", 400 );
@@ -39,7 +39,7 @@ export default function( oRequest, oResponse ) {
 
     sName && ( oFastfood.name = sName );
     sAddress && ( oFastfood.address = sAddress );
-    sHours && ( oFastfood.hours = aHours );
+    aHours && ( oFastfood.hours = aHours );
     sSlug && ( oFastfood.slug = sSlug );
 
     getFastfood()

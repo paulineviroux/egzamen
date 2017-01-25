@@ -11,18 +11,18 @@
 "use strict";
 
 var sUser = process.env.USER,
-    gulp = require( "gulp" ),
+    gulp = require( "gulp" ), // Task runner : automatiseur de taches. Il lance pour nous des bouts de scripts
     gSass = sUser !== "vagrant" && require( "gulp-sass" ),
-    gESLint = require( "gulp-eslint" ),
+    gESLint = require( "gulp-eslint" ), // identifie et indique les erreurs
     gBabel = require( "gulp-babel" ),
     gUtil = require( "gulp-util" ),
     Mongo = require( "mongodb" ),
-    browserify = require( "browserify" ),
-    babelify = require( "babelify" ),
+    browserify = require( "browserify" ), // permet d'utiliser le systeme de module de node.js dans le navigateur. Il regroupe nos dépendances
+    babelify = require( "babelify" ), //compile de ES6 vers de ES5 pour les nav qui ne supportent pas ES6
     sourceStream = require( "vinyl-source-stream" ),
-    buffer = require( "vinyl-buffer" ),
-    gRename = require( "gulp-rename" ),
-    gUglify = require( "gulp-uglify" ),
+    buffer = require( "vinyl-buffer" ), //buffer: zone mémoire de taille limitée servant à stocker des données, mémoire tampon.
+    gRename = require( "gulp-rename" ), //renommer les fichiers facilement
+    gUglify = require( "gulp-uglify" ), //minimer les fichiers
     ObjectID = Mongo.ObjectID,
     MongoClient = Mongo.MongoClient;
 
@@ -48,7 +48,7 @@ if ( sUser === "vagrant" ) {
             // drop database
             oDB.dropDatabase()
                 .then( function() {
-                    return oDB.collection( "fastfood" ).insertMany( require( __dirname + "/data/export.json" ) );
+                    return oDB.collection( "fastfoods" ).insertMany( require( __dirname + "/data/export.json" ) );
                 } )
                 .then( function() {
                     oDB.close();

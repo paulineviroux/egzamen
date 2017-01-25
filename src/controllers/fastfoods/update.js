@@ -8,8 +8,8 @@
 
 import { ObjectID } from "mongodb";
 
-import getFastfood from "../../models/fastfood.js";
-import { checkFastfood } from "../../models/fastfood.js";
+import getFastfood from "../../models/fastfoods.js";
+import { checkFastfood } from "../../models/fastfoods.js";
 import { send, error } from "../../core/utils/api.js";
 import distance from "jeyo-distans";
 import checkPosition from "../../core/utils/position.js";
@@ -27,9 +27,8 @@ export default function( oRequest, oResponse ) {
         iLatitude = POST.latitude,
         iLongitude = POST.longitude,
         sName = ( POST.name || "" ).trim(),
-        sSlug = sName.toLowercase().replace( " ", "-" ),
+        sSlug = sName.toLowerCase().replace( " ", "-" ),
         aHours = POST.hours,
-        sFastfoodID = ( POST.bank || "" ).trim(),
         oPosition, aModifications = [];
 
     try {
@@ -104,7 +103,7 @@ export default function( oRequest, oResponse ) {
 
                 oModificationsToApply.updated_at = new Date();
 
-                return getFastfoods()
+                return getFastfood()
                     .updateOne( {
                         "_id": oFastfood._id,
                     }, {
