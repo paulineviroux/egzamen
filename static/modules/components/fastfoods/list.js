@@ -30,7 +30,7 @@ let oFastfoodsList = Vue.component( "fastfoods-list", {
                 </p>
             </div>
             <div class="main">
-            <h2 class="main__title">Les Quicks à proximité</h2>
+            <h2 class="main__title">Les Quick à proximité</h2>
                 <ul class="main__list">
                     <li class="main__item" v-for="elt in fastfoods">
                         <router-link :to="'/' + elt.id" class="main__link">
@@ -40,7 +40,6 @@ let oFastfoodsList = Vue.component( "fastfoods-list", {
                     </li>
                 </ul>
             </div>
-        
         </div>
     `,
     mounted() {

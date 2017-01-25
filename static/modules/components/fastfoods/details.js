@@ -20,8 +20,7 @@ let ofastfoodDetails = Vue.component( "fastfood-details", {
     },
     "template": `
         <div class="fastfood-details">
-            <p class="slogan">Détails du quick</p>
-            <router-link to="/">&lsaquo; retour</router-link>
+            <h1 class="fastfood-details__title">Détails du quick</h1>
             <div class="loading" v-if="!loaded">
                 <p>Loading...</p>
             </div>
@@ -50,42 +49,43 @@ let ofastfoodDetails = Vue.component( "fastfood-details", {
                             </tr>
                             <tr>
                                 <td>Lundi</td>
-                                <td>{{ fastfood.hours[ 0 ][ 0 ] }}</td>
-                                <td>{{ fastfood.hours[ 0 ][ 1 ] }}</td>
+                                <td>{{ fastfood.hours[ 0 ][ 0 ] }} h</td>
+                                <td>{{ fastfood.hours[ 0 ][ 1 ] }} h</td>
                             </tr>
                             <tr>
                                 <td>Mardi</td>
-                                <td>{{ fastfood.hours[ 1 ][ 0 ] }}</td>
-                                <td>{{ fastfood.hours[ 1 ][ 1 ] }}</td>
+                                <td>{{ fastfood.hours[ 1 ][ 0 ] }} h</td>
+                                <td>{{ fastfood.hours[ 1 ][ 1 ] }} h</td>
                             </tr>
                             <tr>
                                 <td>Mercredi</td>
-                                <td>{{ fastfood.hours[ 2 ][ 0 ] }}</td>
-                                <td>{{ fastfood.hours[ 2 ][ 1 ] }}</td>
+                                <td>{{ fastfood.hours[ 2 ][ 0 ] }} h</td>
+                                <td>{{ fastfood.hours[ 2 ][ 1 ] }} h</td>
                             </tr>
                             <tr>
                                 <td>Jeudi</td>
-                                <td>{{ fastfood.hours[ 3 ][ 0 ] }}</td>
-                                <td>{{ fastfood.hours[ 3 ][ 1 ] }}</td>
+                                <td>{{ fastfood.hours[ 3 ][ 0 ] }} h</td>
+                                <td>{{ fastfood.hours[ 3 ][ 1 ] }} h</td>
                             </tr>
                             <tr>
                                 <td>Vendredi</td>
-                                <td>{{ fastfood.hours[ 4 ][ 0 ] }}</td>
-                                <td>{{ fastfood.hours[ 4 ][ 1 ] }}</td>
+                                <td>{{ fastfood.hours[ 4 ][ 0 ] }} h</td>
+                                <td>{{ fastfood.hours[ 4 ][ 1 ] }} h</td>
                             </tr>
                             <tr>
                                 <td>Samedi</td>
-                                <td>{{ fastfood.hours[ 5 ][ 0 ] }}</td>
-                                <td>{{ fastfood.hours[ 5 ][ 1 ] }}</td>
+                                <td>{{ fastfood.hours[ 5 ][ 0 ] }} h</td>
+                                <td>{{ fastfood.hours[ 5 ][ 1 ] }} h</td>
                             </tr>
                             <tr>
                                 <td>Dimanche</td>
-                                <td>{{ fastfood.hours[ 6 ][ 0 ] }}</td>
-                                <td>{{ fastfood.hours[ 6 ][ 1 ] }}</td>
+                                <td>{{ fastfood.hours[ 6 ][ 0 ] }} h</td>
+                                <td>{{ fastfood.hours[ 6 ][ 1 ] }} h</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <router-link to="/" class="main__retour">&lsaquo; Retour</router-link>
             </div>
         </div>
     `,
