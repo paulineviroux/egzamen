@@ -84,6 +84,14 @@ body {
         font-size: 1.4rem;
         padding-bottom: 1rem;
     }
+    &__title:after{
+        content: " ";
+        border-bottom: 1px solid #D01030;
+        width: 100px;
+        display: block;
+        margin: 0 auto;
+        padding-top: 1rem;
+    }
     &__list{
         
     }
