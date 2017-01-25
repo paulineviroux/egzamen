@@ -108,6 +108,12 @@ body {
         text-decoration: none;
         padding-bottom: .5rem;
     }
+    &__distance{
+        margin-top: 1rem;
+    }
+    &__meters{
+        font-weight: 600;
+    }
     &__retour{
         font-weight: 600;
         color: black;
