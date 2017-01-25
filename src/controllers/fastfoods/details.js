@@ -27,7 +27,6 @@ export default function( oRequest, oResponse ) {
     getFastfoods()
         .findOne( {
             "_id": new ObjectID( sFastfoodID ),
-            "deleted_at": null,
         } )
         .then( ( oFastfood ) => {
             if( !oFastfood ) {
@@ -39,8 +38,7 @@ export default function( oRequest, oResponse ) {
 
             oCleanFastfood = {
                 "id": _id,
-                "state": bState,
-                name, slug, latitude, longitude, address, hours,
+                name, latitude, longitude, address, hours,
             };
 
             if ( oCurrentPosition ) {

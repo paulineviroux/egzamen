@@ -1,17 +1,16 @@
 /* paulineviroux/RIA/egzamen
  *
- * /static/modules/components/fastfood/details.js - Fastfood details vue
+ * /src/static/modules/components/fastfoods/details.js - Controllers for fastfood details
  *
  * coded by paulineviroux!
  * started at 21/01/2017
  */
 
-
 import Vue from "vue";
 import reqwest from "reqwest";
 import getLocation from "../../utils/location-manager.js";
 
-let oFastfoodDetails = Vue.component( "fastfood-details", {
+let ofastfoodDetails = Vue.component( "fastfood-details", {
     "data": function() {
         return {
             "loaded": false,
@@ -21,38 +20,85 @@ let oFastfoodDetails = Vue.component( "fastfood-details", {
     },
     "template": `
         <div class="fastfood-details">
+            <p class="slogan">Détails du quick</p>
+            <router-link to="/">&lsaquo; retour</router-link>
             <div class="loading" v-if="!loaded">
-                <p>loading…</p>
+                <p>Loading...</p>
             </div>
             <div class="error" v-if="loaded && error">
                 <p>
-                    <strong>Error:</strong>
-                    {{ error.message }}
+                    <strong>Error:</strong> {{ error }}
                 </p>
             </div>
             <div v-if="loaded" class="main">
-                <h2 class="main__title">Détails dun fastfood</h2>
-                <p class="main__p">{{ fastfood.name }}</p>
-                <span v-if="!resto.state">Fermé</span>
-                <span v-if="resto.state">Ouvert</span>
+                <h2 class="main__title">{{ fastfood.name }}</h2>
                 <address class="main__address">{{ fastfood.address }}</address>
-                <p class="main__p">{{ fastfood.hours }}</p>
+            
+                <div class="coordonnees">
+                    <h3 class="coordonnees__title">Coordonnées</h3>
+                    <p class="coordonnees__p">Latitude: {{ fastfood.latitude }}</p>
+                    <p class="coordonnees__p">Longitude: {{ fastfood.longitude }}</p>
+                </div>
+                <div class="horaire">
+                    <h3 class="horaire__title">Horaire</h3>
+                    <table class="horaire__table">
+                        <tbody>
+                            <tr>
+                                <th>Jour</th>
+                                <th>Ouverture</th>
+                                <th>Fermeture</th>
+                            </tr>
+                            <tr>
+                                <td>Lundi</td>
+                                <td>{{ fastfood.hours[ 0 ][ 0 ] }}</td>
+                                <td>{{ fastfood.hours[ 0 ][ 1 ] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Mardi</td>
+                                <td>{{ fastfood.hours[ 1 ][ 0 ] }}</td>
+                                <td>{{ fastfood.hours[ 1 ][ 1 ] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Mercredi</td>
+                                <td>{{ fastfood.hours[ 2 ][ 0 ] }}</td>
+                                <td>{{ fastfood.hours[ 2 ][ 1 ] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Jeudi</td>
+                                <td>{{ fastfood.hours[ 3 ][ 0 ] }}</td>
+                                <td>{{ fastfood.hours[ 3 ][ 1 ] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Vendredi</td>
+                                <td>{{ fastfood.hours[ 4 ][ 0 ] }}</td>
+                                <td>{{ fastfood.hours[ 4 ][ 1 ] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Samedi</td>
+                                <td>{{ fastfood.hours[ 5 ][ 0 ] }}</td>
+                                <td>{{ fastfood.hours[ 5 ][ 1 ] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Dimanche</td>
+                                <td>{{ fastfood.hours[ 6 ][ 0 ] }}</td>
+                                <td>{{ fastfood.hours[ 6 ][ 1 ] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-            <router-link to="/">&lsaquo; retour
-            <p class="main__p">{{ fastfood.name }}</p></router-link>
         </div>
     `,
     mounted() {
         this.fetchInfos( this.$route.params.id );
     },
-
-    "method": {
-        fetchInfos( sFastfoodId ) {
+    "methods": {
+        fetchInfos( sfastfoodID ) {
+            // current possition
             return getLocation()
                 .then( ( { coords } ) => {
                     return reqwest( {
-                        "url": `/fastfoods/${ sFastfoodId }`,
+                        "url": `/fastfoods/${ sfastfoodID }`,
                         "method": "get",
                         "data": {
                             "latitude": coords.latitude,
@@ -61,10 +107,10 @@ let oFastfoodDetails = Vue.component( "fastfood-details", {
                     } );
                 } )
                 .then( ( oResponse ) => {
-                    let oFastfood = oResponse.data;
+                    let ofastfood = oResponse.data;
 
                     this.loaded = true;
-                    this.fastfood = oFastfood;
+                    this.fastfood = ofastfood;
                 } )
                 .catch( this.showError );
         },
@@ -75,4 +121,4 @@ let oFastfoodDetails = Vue.component( "fastfood-details", {
     },
 } );
 
-export default oFastfoodDetails;
+export default ofastfoodDetails;

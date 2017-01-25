@@ -1,6 +1,6 @@
 /* paulineviroux/RIA/egzamen
  *
- * /static/modules/components/fastfood/list.js - Fastfood list vue
+ * /src/static/modules/components/fastfood/list.js - Fastfood list vue
  *
  * coded by paulineviroux!
  * started at 21/01/2017
@@ -21,7 +21,7 @@ let oFastfoodsList = Vue.component( "fastfoods-list", {
     "template": `
         <div class="fastfoods-list">
             <div class="loading" v-if="!loaded">
-                <p>loading…</p>
+                <p>Loading…</p>
             </div>
             <div class="error" v-if="loaded && error">
                 <p>
